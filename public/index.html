@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&.." rel="stylesheet">
+    <style>
+        body {
+            font-family:'Roboto', sans-serif;
+            font-weight: bold;
+
+        }
+        label {
+            width: 140px;
+            display: inline-block;
+            margin: 6px;
+        }
+    </style>
+</head>
+<body>
+<script>
+    async function getRate() {
+        let curr = document.getElementById('select').value;
+        let url = "http://localhost:3000/get/"+curr;
+        let response = await fetch(url);
+        let data = await response.json();
+        let course = data['value'];
+        document.getElementById('current_value').innerText=course;
+
+    }
+</script>
+<h1>Сервис для мониторинга курса валюта</h1>
+<div id="block">
+    <label for="select"> Выберите валюту:</label>
+    <select id="select" onchange="getRate()">
+        <option value=""> Не выбрано</option>
+        <option value="USD"> Доллар США</option>
+        <option value="EUR"> Евро</option>
+        <option value="CNY">Китайский юань</option>
+    </select><br>
+    <label for="current_value">Курс:</label>
+    <span id="current_value">0</span>
+</div>
+</body>
+</html>
+
